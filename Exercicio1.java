@@ -16,10 +16,10 @@ public class Exercicio1 {
 	
 	
 	
-	public static int[][] todasCombinacoesIterativo(int n, int k) throws Exception {
+	public static int[][] todasCombinacoesIterativo(int n, int k) throws RuntimeException {
 		
 		if (k > n) {
-			throw new Exception("k deve ser maior que n");
+			throw new RuntimeException("k deve ser maior que n");
 		}
 		
 		
