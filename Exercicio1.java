@@ -7,7 +7,20 @@ public class Exercicio1 {
 	
 	public static void main(String[] args) {		
 		try {
-			print2D(todasCombinacoesIterativo(25, 13));
+			long timeMillis = System.currentTimeMillis();
+
+			//print2D(todasCombinacoesIterativo(25, 12));
+		
+			//System.out.println(nEquals(array1,array2, 3));
+			//System.out.println(Teste(10, 5 , 4 , 1));
+			System.out.println(Exercicio2(13,8,7));
+			//System.out.println(nEquals(a1,a2, 10));
+			
+			long timeMillis2 = System.currentTimeMillis() - timeMillis;
+
+			System.out.print("Tempo de processamento : ");
+			System.out.println(timeMillis2);
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -83,6 +96,61 @@ public class Exercicio1 {
 		return (int) (numerador / denominador);
 		
 	}
+
+	public static double Exercicio2(int n, int k1, int k2){
+		
+		int cnk = combinacoesPossiveis(n, k2);
+		int[] abrangencia2 = new int[cnk];
+		
+		int[][] s1 = todasCombinacoesIterativo(n, k1);
+		
+		int[][] s2 = todasCombinacoesIterativo(n, k2);
+		
+		int abrangencia_total = 0;
+		int abrangencia = 0;
+		int n_conjuntos= 0;
+		
+		for(int step = 0; step < s1.length/ k2; step++) {
+			for(int i = step; i < s1.length; i+= k2) {
+				abrangencia = 0;
+				for(int j = 0; j < s2.length; j++) {
+					if (abrangencia2[j] == 0 && nEquals(s1[i],  s2[j], n) == k2) {
+						abrangencia++;
+						abrangencia2[j] = 1;
+						abrangencia_total++;
+					}
+				}
+				if(abrangencia == 0) { n_conjuntos--; i+=2;}
+				n_conjuntos++;
+				
+				if (abrangencia_total == cnk) break;
+			}
+			if (abrangencia_total == cnk) break;
+		}
+
+		return (double) n_conjuntos;
+	}
+
+	public static int nEquals(int[] array1, int[] array2, int n) {
+		
+		int[] equality = new int[n];
+		int[] equality2 = new int[n];
+		
+		for(int i = 0; i < array1.length; i++) {
+			equality[array1[i] - 1] = 1;
+		}
+		
+		for(int j = 0; j < array2.length; j++) {
+			equality2[array2[j] - 1] = 1;
+		}
+		
+		int sum = 0;
+		for(int k = 0; k < equality.length; k++) {
+			sum += (equality[k] == 1) && (equality[k] == equality2[k])? 1:0;
+		} 
+		return sum;
+	}
+	
 	
 	
 }
